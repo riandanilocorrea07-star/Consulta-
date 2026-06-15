@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Baralho Cigano - Leituras Espirituais ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #f0d4ff;
+            background: linear-gradient(135deg, #2a0040, #3d0066, #5e2a8f, #1a0033);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://source.unsplash.com/random/1920x1080/?galaxy,stars,purple') center/cover no-repeat;
+            opacity: 0.4;
+            z-index: -1;
+            animation: stars 50s linear infinite;
+        }
+        
+        @keyframes stars {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(212, 175, 255, 0.8);
+            color: #ffd700;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .step {
+            background: rgba(30, 0, 60, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #b19cd9;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .option-btn {
+            background: linear-gradient(145deg, #6a1b9a, #9c4dcc);
+            color: #ffd700;
+            border: none;
+            padding: 18px 20px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(212, 175, 0, 0.6);
+            background: linear-gradient(145deg, #9c4dcc, #d4af37);
+            color: #ffffff;
+        }
+        
+        .summary {
+            background: rgba(40, 0, 80, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+        
+        .pix {
+            background: #4b0082;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 25px 0;
+            border: 3px dashed #b19cd9;
+        }
+        
+        button#confirm {
+            display: block;
+            margin: 30px auto;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            background: linear-gradient(90deg, #ffd700, #ffeb3b);
+            color: #3d0066;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .progress-dot {
+            width: 14px;
+            height: 14px;
+            background: #6a1b9a;
+            border-radius: 50%;
+            transition: all 0.4s;
+        }
+        
+        .progress-dot.active {
+            background: #ffd700;
+            transform: scale(1.4);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Baralho Cigano ✨</h1>
+            <p class="subtitle">Leituras Espirituais com Amor e Sabedoria</p>
+        </header>
+
+        <!-- Progress -->
+        <div class="progress" id="progress">
+            <div class="progress-dot active" id="dot1"></div>
+            <div class="progress-dot" id="dot2"></div>
+            <div class="progress-dot" id="dot3"></div>
+            <div class="progress-dot" id="dot4"></div>
+        </div>
+
+        <!-- Step 1: Perguntas -->
+        <div class="step active" id="step1">
+            <h2 style="text-align:center; color:#ffd700;">Passo 1: Escolha o Tipo de Consulta</h2>
+            <div class="options">
+                <button class="option-btn" onclick="selectPerguntas(1)">1 Pergunta - R$ 3,00</button>
+                <button class="option-btn" onclick="selectPerguntas(2)">2 Perguntas - R$ 4,80</button>
+                <button class="option-btn" onclick="selectPerguntas(3)">3 Perguntas - R$ 6,30</button>
+                <button class="option-btn" onclick="selectPerguntas(0)">Sim ou Não - R$ 1,50</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Áreas -->
+        <div class="step" id="step2">
+            <h2 style="text-align:center; color:#ffd700;">Passo 2: Escolha a Área</h2>
+            <div class="options">
+                <button class="option-btn" onclick="selectArea('Relacionamento')">Relacionamento - R$ 2,60</button>
+                <button class="option-btn" onclick="selectArea('Trabalho')">Trabalho - R$ 1,50</button>
+                <button class="option-btn" onclick="selectArea('Saúde')">Saúde - R$ 2,00</button>
+                <button class="option-btn" onclick="selectArea('Dinheiro')">Dinheiro - R$ 3,40</button>
+                <button class="option-btn" onclick="selectArea('Conselho Geral')">Conselho Geral - R$ 4,50</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Métodos -->
+        <div class="step" id="step3">
+            <h2 style="text-align:center; color:#ffd700;">Passo 3: Escolha o Método</h2>
+            <div class="options">
+                <button class="option-btn" onclick="selectMetodo('Baralho Cigano')">Baralho Cigano - R$ 3,00</button>
+                <button class="option-btn" onclick="selectMetodo('4 Búzios')">4 Búzios - R$ 3,80</button>
+                <button class="option-btn" onclick="selectMetodo('4 Búzios + Baralho')">4 Búzios + Baralho - R$ 8,70</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Resumo -->
+        <div class="step" id="step4">
+            <h2 style="text-align:center; color:#ffd700;">Resumo da Sua Consulta</h2>
+            <div class="summary" id="resumo">
+                <!-- JS will fill this -->
+            </div>
+            
+            <div class="pix">
+                <strong>Telefone:</strong> (21) 96559-0276<br><br>
+                <strong>Chave PIX</strong><br>
+                215.395.127-54
+            </div>
+            
+            <p style="text-align:center; margin-top:20px;">
+                Após o pagamento, envie o comprovante e o resumo desta seleção para mim.
+            </p>
+            
+            <button id="confirm" onclick="confirmarConsulta()">Confirmar e Enviar Seleção</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Que os guias espirituais iluminem seu caminho 🌌</p>
+    </footer>
+
+    <script>
+        let selecao = {
+            tipo: '',
+            precoTipo: 0,
+            area: '',
+            precoArea: 0,
+            metodo: '',
+            precoMetodo: 0
+        };
+
+        function updateProgress(step) {
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot${i}`);
+                if (dot) dot.classList.toggle('active', i <= step);
+            }
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            updateProgress(step);
+        }
+
+        function selectPerguntas(num) {
+            if (num === 0) {
+                selecao.tipo = "Sim ou Não";
+                selecao.precoTipo = 1.50;
+            } else {
+                selecao.tipo = num + " Pergunta" + (num > 1 ? "s" : "");
+                selecao.precoTipo = num === 1 ? 3.00 : (num === 2 ? 4.80 : 6.30);
+            }
+            showStep(2);
+        }
+
+        function selectArea(area) {
+            selecao.area = area;
+            if (area === 'Relacionamento') selecao.precoArea = 2.60;
+            else if (area === 'Trabalho') selecao.precoArea = 1.50;
+            else if (area === 'Saúde') selecao.precoArea = 2.00;
+            else if (area === 'Dinheiro') selecao.precoArea = 3.40;
+            else if (area === 'Conselho Geral') selecao.precoArea = 4.50;
+            showStep(3);
+        }
+
+        function selectMetodo(metodo) {
+            selecao.metodo = metodo;
+            if (metodo === 'Baralho Cigano') selecao.precoMetodo = 3.00;
+            else if (metodo === '4 Búzios') selecao.precoMetodo = 3.80;
+            else selecao.precoMetodo = 8.70;
+            
+            showStep(4);
+            renderResumo();
+        }
+
+        function renderResumo() {
+            const total = (selecao.precoTipo + selecao.precoArea + selecao.precoMetodo).toFixed(2);
+            document.getElementById('resumo').innerHTML = `
+                <strong>Consulta:</strong> ${selecao.tipo}<br>
+                <strong>Área:</strong> ${selecao.area}<br>
+                <strong>Método:</strong> ${selecao.metodo}<br><br>
+                <strong>Total a pagar:</strong> R$ ${total}
+            `;
+        }
+
+        function confirmarConsulta() {
+            const total = (selecao.precoTipo + selecao.precoArea + selecao.precoMetodo).toFixed(2);
+            const mensagem = `Olá! Gostaria de agendar uma consulta:\n\n` +
+                            `Tipo: ${selecao.tipo}\n` +
+                            `Área: ${selecao.area}\n` +
+                            `Método: ${selecao.metodo}\n` +
+                            `Total: R$ ${total}\n\n` +
+                            `Telefone: (21) 96559-0276\n` +
+                            `PIX: 215.395.127-54`;
+            
+            alert("Seleção confirmada! Copie a mensagem abaixo e envie para o WhatsApp da sua leitora:\n\n" + mensagem);
+            
+            // Simulate copy to clipboard
+            navigator.clipboard.writeText(mensagem).then(() => {
+                alert("Mensagem copiada para a área de transferência! Agora é só colar no WhatsApp.");
+            });
+        }
+
+        // Start
+        window.onload = () => {
+            showStep(1);
+        };
+    </script>
+</body>
+</html>
